@@ -3,6 +3,6 @@ on:  push:    branches:      - main
 jobs:  build:    runs-on: ubuntu-latest    timeout-minutes: 120
     steps:      - uses: actions/checkout@v3
       - name: Install system deps        run: |          sudo apt update          sudo apt install -y python3-pip python3-dev build-essential git zip unzip openjdk-17-jdk wget curl
-      - name: Install Buildozer & deps        run: |          python3 -m pip install --upgrade pip setuptools wheel          python3 -m pip install --user buildozer cython          export PATH=$HOME/.local/bin:$PATH          buildozer --version
-      - name: Build APK        env:          ANDROIDSDK: ${{ runner.os }}        run: |          export PATH=$HOME/.local/bin:$PATH          ~/.local/bin/buildozer android debug
-      - name: Upload APK        uses: actions/upload-artifact@v3        with:          name: mybot-apk          path: bin/*.apk
+      - name: Install Buildozer & deps        run: |          python3 -m pip install --upgrade pip setuptools wheel          python3 -m pip install buildozer cython          export PATH=$HOME/.local/bin:$PATH          buildozer --version
+      - name: Build APK        env:          ANDROIDSDK: ${{ runner.os }}        run: |          export PATH=$HOME/.local/bin:$PATH          buildozer android debug
+      - name: Upload APK        uses: actions/upload-artifact@v3        with:          name: XT-ScalperPro-APK          path: bin/*.apk
